@@ -23,13 +23,7 @@ var layer_mapnik;
 var layer_tah;
 var layer_markers;
 
-	window.onload = function ermittlePosition() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(zeigePosition);
-		} else {
-			//ausgabe.innerHTML = 'Ihr Browser unterstützt keine Geolocation.';
-		}
-	}
+
 	
 
 
@@ -39,6 +33,12 @@ function drawmap() {
 
     OpenLayers.Lang.setCode('de');
     	
+	
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(zeigePosition);
+		} else {
+			//ausgabe.innerHTML = 'Ihr Browser unterstützt keine Geolocation.';
+		}
 
 	
     // Position und Zoomstufe der Karte
