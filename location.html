@@ -39,9 +39,6 @@ div {
 
 function ermittlePosition() {
 
-	document.getElementsByTagName('div')[1].style.visibility="hidden";
-
-
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler);
