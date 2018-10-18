@@ -23,16 +23,27 @@ var layer_mapnik;
 var layer_tah;
 var layer_markers;
 
-function drawmap() {
+function ermittlePosition() {
+
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler);
+    } else { 
+        ausgabe.innerHTML = 'Ihr Browser unterstützt keine Geolocation.';
+    }
+}
+
+
+function zeigePosition(position) {
     // Popup und Popuptext mit evtl. Grafik
-    var popuptext="<font color=\"black\"><b>Thomas Heiles<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
+    var popuptext="<font color=\"black\"><b>Du bist hier:<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
 
     OpenLayers.Lang.setCode('de');
     
     // Position und Zoomstufe der Karte
-    var lon = 6.641389;
-    var lat = 49.756667;
-    var zoom = 7;
+    var lon = position.coords.longitude;
+    var lat = position.coords.latitude;
+    var zoom = 14;
 
     map = new OpenLayers.Map('map', {
         projection: new OpenLayers.Projection("EPSG:900913"),
@@ -44,7 +55,7 @@ function drawmap() {
         maxExtent:
             new OpenLayers.Bounds(-20037508.34,-20037508.34,
                                     20037508.34, 20037508.34),
-        numZoomLevels: 18,
+        numZoomLevels: 19,
         maxResolution: 156543,
         units: 'meters'
     });
@@ -57,15 +68,32 @@ function drawmap() {
     jumpTo(lon, lat, zoom);
  
     // Position des Markers
-    addMarker(layer_markers, 6.641389, 49.756667, popuptext);
+    addMarker(layer_markers, lon, lat, popuptext);
 
+}
+
+function zeigeFehler(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            ausgabe.innerHTML = "Benutzer lehnte Standortabfrage ab."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            ausgabe.innerHTML = "Standortdaten sind nicht verfügbar."
+            break;
+        case error.TIMEOUT:
+            ausgabe.innerHTML = "Die Standortabfrage dauerte zu lange (Time-out)."
+            break;
+        case error.UNKNOWN_ERROR:
+            ausgabe.innerHTML = "unbekannter Fehler."
+            break;
+    }
 }
 
 //]]>
     </script>
 
   </head>
-  <body onload="drawmap();">
+  <body onload="ermittlePosition();">
 
   <div id="header">
    <div id="content">Karte (Testversion)</div>
