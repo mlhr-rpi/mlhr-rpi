@@ -28,7 +28,7 @@ function ermittlePosition() {
 
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler);
+        navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler, {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000}); // max 5s alt, timeout 5s
     } else { 
         ausgabe.innerHTML = 'Ihr Browser unterstützt keine Geolocation.';
     }
@@ -37,9 +37,9 @@ function ermittlePosition() {
 
 function zeigePosition(position) {
    // Info für Console
- console.log("Genauigkeit:" + coords.accuracy);
- console.log("Höhe:" + coords.altitude);
- console.log("Geschwindigkeit:" + coords.speed);
+   console.log("Genauigkeit:" + coords.accuracy);
+   console.log("Höhe:" + coords.altitude);
+   console.log("Geschwindigkeit:" + coords.speed);
  
  
     // Popup und Popuptext mit evtl. Grafik
