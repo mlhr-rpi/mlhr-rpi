@@ -29,7 +29,7 @@ function ermittlePosition() {
 
 ausgabe = document.getElementById("test");
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler, {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000}); // max 5s alt, timeout 5s   , {maximumAge: 500000, enableHighAccuracy:false, timeout: 5000}
+        navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler, {maximumAge: 500000, enableHighAccuracy:true, timeout: 15000}); // max 5s alt, timeout 5s   , {maximumAge: 500000, enableHighAccuracy:false, timeout: 5000}
     } else { 
         ausgabe.innerHTML = 'Ihr Browser unterstützt keine Geolocation.';
     }
