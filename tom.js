@@ -1,5 +1,3 @@
-var button = document.getElementById('los');
-button.addEventListener('click', ermittlePosition);
 var ausgabe = document.getElementById('ausgabe');
 
 function ermittlePosition() {
