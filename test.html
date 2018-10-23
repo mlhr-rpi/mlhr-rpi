@@ -23,12 +23,13 @@ var map;
 var layer_mapnik;
 var layer_tah;
 var layer_markers;
+var ausgabe;
 
 function ermittlePosition() {
 
-
+ausgabe = document.getElementById("test");
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler, {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000}); // max 5s alt, timeout 5s
+        navigator.geolocation.getCurrentPosition(zeigePosition, zeigeFehler, {maximumAge: 500000, enableHighAccuracy:true, timeout: 5000}); // max 5s alt, timeout 5s   , {maximumAge: 500000, enableHighAccuracy:false, timeout: 5000}
     } else { 
         ausgabe.innerHTML = 'Ihr Browser unterstützt keine Geolocation.';
     }
@@ -37,9 +38,9 @@ function ermittlePosition() {
 
 function zeigePosition(position) {
    // Info für Console
-   console.log("Genauigkeit:" + coords.accuracy);
-   console.log("Höhe:" + coords.altitude);
-   console.log("Geschwindigkeit:" + coords.speed);
+   console.log("Genauigkeit:" + position.coords.accuracy);
+   console.log("Höhe:" + position.coords.altitude);
+   console.log("Geschwindigkeit:" + position.coords.speed);
  
  
     // Popup und Popuptext mit evtl. Grafik
@@ -109,7 +110,7 @@ function zeigeFehler(error) {
      <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
    </div>
   </div>
-   <p id="ausgabe"></p>
+   <p id="test"></p>
   <div id="map">
   </div>
   
